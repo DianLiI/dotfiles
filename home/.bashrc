@@ -107,3 +107,5 @@ done
 
 # Try to keep environment pollution down, EPA loves us.
 unset use_color sh
+
+source "$HOME/.homesick/repos/homeshick/homeshick.sh"
