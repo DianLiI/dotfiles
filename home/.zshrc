@@ -6,8 +6,6 @@ source "${HOME}/.zgen/zgen.zsh"
 
 # if the init scipt doesn't exist
 if ! zgen saved; then
-    # oh-my-zsh
-
     # prezto options
     zgen prezto prompt theme 'sorin'
     zgen prezto '*:*' color 'yes'
@@ -23,7 +21,6 @@ if ! zgen saved; then
     zgen prezto git
     zgen prezto command-not-found
     zgen prezto fasd
-
     zgen save
 fi
 
