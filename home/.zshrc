@@ -25,3 +25,4 @@ if ! zgen saved; then
 fi
 
 source "$HOME/.homesick/repos/homeshick/homeshick.sh"
+export PATH=/opt/anaconda/bin:$PATH

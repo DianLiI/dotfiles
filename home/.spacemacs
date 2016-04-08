@@ -23,10 +23,15 @@ values."
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     auto-completion
+     (auto-completion
+        :variables
+        auto-completion-return-key-behavior nil
+        auto-completion-tab-key-behavior 'cycle
+        :disabled-for org erc)
      better-defaults
      emacs-lisp
      git
+     github
      markdown
      org
      (shell :variables
@@ -43,14 +48,24 @@ values."
      ibuffer
      deft
      search-engine
-     django
      python
+     themes-megapack
+     version-control
+     (evil-snipe :variables evil-snipe-enable-alternate-f-and-t-behaviors t)
+     extra-langs
+     semantic
+     (shell :variables shell-default-shell 'eshell)
+     shell-scripts
+     (syntax-checking :variables syntax-checking-enable-by-default nil)
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages
+   '(
+     helm-flycheck
+     )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -92,7 +107,7 @@ values."
    ;; directory. A string value must be a path to an image format supported
    ;; by your Emacs build.
    ;; If the value is nil then no banner is displayed. (default 'official)
-   dotspacemacs-startup-banner 'official
+   dotspacemacs-startup-banner nil
    ;; List of items to show in the startup buffer. If nil it is disabled.
    ;; Possible values are: `recents' `bookmarks' `projects'.
    ;; (default '(recents projects))
@@ -105,7 +120,9 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(monokai
+   dotspacemacs-themes '(
+                         dracula
+                         monokai
                          spacemacs-dark
                          spacemacs-light
                          solarized-light
@@ -167,10 +184,10 @@ values."
    ;; `find-contrib-file' (SPC f e c) are replaced. (default nil)
    dotspacemacs-use-ido nil
    ;; If non nil, `helm' will try to minimize the space it uses. (default nil)
-   dotspacemacs-helm-resize nil
+   dotspacemacs-helm-resize  t
    ;; if non nil, the helm header is hidden when there is only one source.
    ;; (default nil)
-   dotspacemacs-helm-no-header nil
+   dotspacemacs-helm-no-header t
    ;; define the position to display `helm', options are `bottom', `top',
    ;; `left', or `right'. (default 'bottom)
    dotspacemacs-helm-position 'bottom
@@ -208,7 +225,7 @@ values."
    ;; Transparency can be toggled through `toggle-transparency'. (default 90)
    dotspacemacs-inactive-transparency 90
    ;; If non nil unicode symbols are displayed in the mode line. (default t)
-   dotspacemacs-mode-line-unicode-symbols t
+   dotspacemacs-mode-line-unicode-symbols nil
    ;; If non nil smooth scrolling (native-scrolling) is enabled. Smooth
    ;; scrolling overrides the default behavior of Emacs which recenters the
    ;; point when it reaches the top or bottom of the screen. (default t)
@@ -248,6 +265,91 @@ values."
 It is called immediately after `dotspacemacs/init'.  You are free to put almost
 any user code here.  The exception is org related code, which should be placed
 in `dotspacemacs/user-config'."
+;; Miscellaneous
+(setq-default
+
+   ;; Miscellaneous
+   vc-follow-symlinks t
+   ring-bell-function 'ignore
+   require-final-newline t
+   indent-tabs-mode nil
+   system-time-locale "C"
+   paradox-github-token t
+   open-junk-file-find-file-function 'find-file
+
+   ;; Backups
+   backup-directory-alist `((".*" . ,temporary-file-directory))
+   auto-save-file-name-transforms `((".*" ,temporary-file-directory t))
+   backup-by-copying t
+   delete-old-versions t
+   kept-new-versions 6
+   kept-old-versions 2
+   make-backup-files nil
+
+   ;; Evil
+   evil-shift-round nil
+   evil-want-C-i-jump t
+
+   ;; Whitespace mode
+   whitespace-style '(face tabs tab-mark newline-mark)
+   whitespace-display-mappings
+   '((newline-mark 10 [172 10])
+     (tab-mark 9 [9655 9]))
+
+   ;; Smartparens
+   sp-highlight-pair-overlay nil
+   sp-highlight-wrap-overlay nil
+   sp-highlight-wrap-tag-overlay nil
+
+   ;; Magit
+   magit-popup-show-common-commands nil
+   magit-gh-pulls-pull-detail-limit 200
+
+   ;; Flycheck
+   flycheck-check-syntax-automatically '(save mode-enabled)
+
+   ;; Avy
+   avy-all-windows 'all-frames
+
+   ;; Ranger
+   ranger-override-dired t
+
+   ;; Spaceline
+   spaceline-buffer-encoding-abbrev-p nil
+   spaceline-version-control-p nil
+
+   ;; Matlab
+   matlab-auto-fill nil
+   matlab-fill-code nil
+   matlab-functions-have-end t
+   matlab-indent-function-body t
+
+   ;; LaTeX
+   font-latex-fontify-script nil
+   TeX-newline-function 'reindent-then-newline-and-indent
+
+   ;; Shell
+   shell-default-term-shell "/bin/zsh"
+
+   ;; Web
+   web-mode-markup-indent-offset 2
+   web-mode-css-indent-offset 2
+
+   ;; Emacs Lisp
+   nameless-global-aliases
+   '(("sm" . "spacemacs")
+     ("dsm" . "dotspacemacs")
+     ("cfl" . "configuration-layer")
+     ("sl" . "spaceline")
+     ("et" . "evil-targets")
+     ("eip" . "evil-indent-plus"))
+   nameless-discover-current-name nil
+   nameless-prefix ""
+   nameless-separator nil
+
+   ;; Rust
+   rust-indent-method-chain t
+   )
   )
 
 (defun dotspacemacs/user-config ()
@@ -260,22 +362,3 @@ layers configuration. You are free to put any user code."
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(clean-aindent-mode t)
- '(evil-ex-search-vim-style-regexp t)
- '(evil-search-module (quote evil-search))
- '(indent-tabs-mode nil)
- '(lua-indent-level 3 t)
- '(lua-indent-string-contents t)
- '(tab-always-indent (quote complete)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
- '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
