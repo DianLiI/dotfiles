@@ -109,4 +109,4 @@ done
 unset use_color sh
 
 source "$HOME/.homesick/repos/homeshick/homeshick.sh"
-# export PATH=/opt/anaconda/bin:$PATH
+export PATH=/opt/anaconda/bin:$PATH

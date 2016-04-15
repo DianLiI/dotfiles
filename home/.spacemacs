@@ -25,8 +25,8 @@ values."
      ;; ----------------------------------------------------------------
      (auto-completion
         :variables
-        auto-completion-return-key-behavior nil
-        auto-completion-tab-key-behavior 'cycle
+        ;; auto-completion-return-key-behavior nil
+        ;; auto-completion-tab-key-behavior 'cycle
         :disabled-for org erc)
      better-defaults
      emacs-lisp
@@ -47,10 +47,8 @@ values."
      ranger
      ibuffer
      deft
-     search-engine
      python
      themes-megapack
-     version-control
      (evil-snipe :variables evil-snipe-enable-alternate-f-and-t-behaviors t)
      extra-langs
      semantic
@@ -121,6 +119,7 @@ values."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
+                         default
                          dracula
                          monokai
                          spacemacs-dark
