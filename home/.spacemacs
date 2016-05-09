@@ -24,10 +24,11 @@ values."
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      (auto-completion
-        :variables
+        ;; :variables
         ;; auto-completion-return-key-behavior nil
         ;; auto-completion-tab-key-behavior 'cycle
         :disabled-for org erc)
+
      better-defaults
      emacs-lisp
      git
@@ -271,7 +272,7 @@ in `dotspacemacs/user-config'."
    vc-follow-symlinks t
    ring-bell-function 'ignore
    require-final-newline t
-   indent-tabs-mode nil
+   ;; indent-tabs-mode nil
    system-time-locale "C"
    paradox-github-token t
    open-junk-file-find-file-function 'find-file
