@@ -30,32 +30,26 @@ values."
         :disabled-for org erc)
 
      better-defaults
-     emacs-lisp
      git
-     github
      markdown
      org
-     (shell :variables
-            shell-default-height 30
-            shell-default-position 'bottom
-            shell-default-term-shell "/bin/bash")
      spell-checking
      syntax-checking
-     version-control
+     ;; (syntax-checking :variables syntax-checking-enable-by-default nil)
+     ;; version-control
      latex
      lua
-     ipython-notebook
      ranger
      ibuffer
-     deft
-     python
+     ipython-notebook
+     (python :variables python-test-runner 'pytest)
      themes-megapack
      (evil-snipe :variables evil-snipe-enable-alternate-f-and-t-behaviors t)
-     extra-langs
+     ;; extra-langs
      semantic
+     typography
      (shell :variables shell-default-shell 'eshell)
      shell-scripts
-     (syntax-checking :variables syntax-checking-enable-by-default nil)
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -92,7 +86,7 @@ values."
    dotspacemacs-elpa-timeout 5
    ;; If non nil then spacemacs will check for updates at startup
    ;; when the current branch is not `develop'. (default t)
-   dotspacemacs-check-for-update t
+   dotspacemacs-check-for-update nil
    ;; One of `vim', `emacs' or `hybrid'. Evil is always enabled but if the
    ;; variable is `emacs' then the `holy-mode' is enabled at startup. `hybrid'
    ;; uses emacs key bindings for vim's insert mode, but otherwise leaves evil
@@ -120,6 +114,7 @@ values."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
+                         whiteboard
                          default
                          dracula
                          monokai
@@ -165,9 +160,12 @@ values."
    ;; If non nil `Y' is remapped to `y$'. (default t)
    dotspacemacs-remap-Y-to-y$ t
    ;; Name of the default layout (default "Default")
-   dotspacemacs-default-layout-name "Default"
+   dotspacemacs-default-layout-name "Home"
    ;; If non nil the default layout name is displayed in the mode-line.
    ;; (default nil)
+   dotspacemacs-retain-visual-state-on-shift t
+   dotspacemacs-ex-substitute-global t
+   ;; added by me 
    dotspacemacs-display-default-layout nil
    ;; If non nil then the last auto saved layouts are resume automatically upon
    ;; start. (default nil)
@@ -257,7 +255,7 @@ values."
    ;; `trailing' to delete only the whitespace at end of lines, `changed'to
    ;; delete only whitespace for changed lines or `nil' to disable cleanup.
    ;; (default nil)
-   dotspacemacs-whitespace-cleanup nil
+   dotspacemacs-whitespace-cleanup 'changed
    ))
 
 (defun dotspacemacs/user-init ()
@@ -346,9 +344,6 @@ in `dotspacemacs/user-config'."
    nameless-discover-current-name nil
    nameless-prefix ""
    nameless-separator nil
-
-   ;; Rust
-   rust-indent-method-chain t
    )
   )
 
@@ -356,8 +351,16 @@ in `dotspacemacs/user-config'."
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
-  (setq-default lua-indent-level 4)
-  (setq powerline-default-separator 'alternate)
+  (setq powerline-default-separator 'alternate
+        spaceline-buffer-encoding-abbrev-p nil
+        spaceline-version-control-p nil)
+  (spaceline-compile)
+  ;; Miscellaneous
+  (add-hook 'text-mode-hook 'auto-fill-mode)
+  ;; (add-hook 'text-mode-hook 'typo-mode)
+  (add-hook 'makefile-mode-hook 'whitespace-mode)
+  (add-hook 'prog-mode-hook 'page-break-lines-mode)
+  (remove-hook 'prog-mode-hook 'spacemacs//show-trailing-whitespace)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
