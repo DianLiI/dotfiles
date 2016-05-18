@@ -114,15 +114,15 @@ values."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
-                         whiteboard
+                         flatui
+                         sanityinc-tomorrow-day
+                         sanityinc-solarized-light
                          default
-                         dracula
                          monokai
                          spacemacs-dark
                          spacemacs-light
-                         solarized-light
                          solarized-dark
-                         leuven
+                         solarized-light
                          zenburn)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
@@ -361,7 +361,7 @@ layers configuration. You are free to put any user code."
   (add-hook 'makefile-mode-hook 'whitespace-mode)
   (add-hook 'prog-mode-hook 'page-break-lines-mode)
   (remove-hook 'prog-mode-hook 'spacemacs//show-trailing-whitespace)
-  )
+    )
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
