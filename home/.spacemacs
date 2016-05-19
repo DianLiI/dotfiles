@@ -27,8 +27,8 @@ values."
         ;; :variables
         ;; auto-completion-return-key-behavior nil
         ;; auto-completion-tab-key-behavior 'cycle
-        :disabled-for org erc)
-
+      :disabled-for org erc)
+     smex
      better-defaults
      git
      markdown

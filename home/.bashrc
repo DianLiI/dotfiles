@@ -110,3 +110,6 @@ unset use_color sh
 
 source "$HOME/.homesick/repos/homeshick/homeshick.sh"
 export PATH=/opt/anaconda/bin:$PATH
+if [ -x /usr/bin/cowsay -a -x /usr/bin/fortune ]; then
+	fortune | cowsay
+fi
